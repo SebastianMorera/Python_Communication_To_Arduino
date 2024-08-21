@@ -1,7 +1,7 @@
 import serial
 
 class ArduinoController:
-    def __init__(self, device_name: str, protocol: str, baudrate: int, port: str, board_type= "Uno", timeout=1):
+    def __init__(self, device_name: str, board_type: str, protocol: str, baudrate: int, port: str, timeout=1):
         self.device_name = device_name
         self.board_type = board_type
         self.protocol = protocol
@@ -28,17 +28,19 @@ class ArduinoController:
             print(f"Connection successfully closed with {self.device_name}")
 
     def turn_on_led(self) -> None:
-        if not self.connected:
+        if not self.connected or self.serial_connection is None:
             print(f"Error: Not connected to {self.device_name}")
+            return
 
         try:
             self.serial_connection.write(b'O')
         except serial.SerialException as e:
             print(f"Error: Failed to write to serial port: {str(e)}")
 
-    def turn_off_lef(self) -> None:
-        if not self.connected:
+    def turn_off_led(self) -> None:
+        if not self.connected or self.serial_connection is None:
             print(f"Error: Not connected to {self.device_name}")
+            return
 
         try:
             self.serial_connection.write(b'F')

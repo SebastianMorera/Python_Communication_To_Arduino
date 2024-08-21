@@ -21,7 +21,7 @@ def SerialCommunicator():
                 case 'O':
                     arduino.turn_on_led()
                 case 'F':
-                    arduino.turn_off_lef()
+                    arduino.turn_off_led()
                 case 'Q':
                     continue_loop = False
                 case __:
